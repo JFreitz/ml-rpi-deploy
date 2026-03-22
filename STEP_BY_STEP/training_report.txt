@@ -1,0 +1,7 @@
+STEP_BY_STEP training report
+==================================================
+height: ExtraTrees_500 | CV_R2=0.9856, TEST_R2=0.9959, TEST_RMSE=0.4108, TEST_MAE=0.2842
+length: RandomForest_400 | CV_R2=0.9923, TEST_R2=0.9976, TEST_RMSE=0.6139, TEST_MAE=0.4191
+weight: ExtraTrees_500 | CV_R2=0.9274, TEST_R2=0.9611, TEST_RMSE=2.0658, TEST_MAE=1.4145
+leaves: RandomForest_400 | CV_R2=0.9739, TEST_R2=0.9776, TEST_RMSE=19.4692, TEST_MAE=15.6420
+branches: ExtraTrees_500 | CV_R2=0.8567, TEST_R2=0.9096, TEST_RMSE=4.0188, TEST_MAE=2.7099
