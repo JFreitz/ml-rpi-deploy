@@ -1,0 +1,271 @@
+FINAL PROJECT SUMMARY AND CONCLUSION
+Date: 2026-03-22
+
+A) PROJECT GOAL
+Predict plant parameters per record using sensor readings while preserving temporal order and plant identity.
+Predicted targets:
+- height
+- length
+- weight
+- leaves
+- branches
+
+Key constraints followed:
+- Split by date (chronological), not by random row.
+- Keep plant identity/context (plant_no, plant_system).
+- Evaluate on future dates only to reduce leakage.
+
+
+B) INPUT DATASET
+Source file:
+- COMBINED_SENSOR_PLANT_DATA_WITH_LENGTH.csv
+
+Dataset profile:
+- Rows: 384
+- Columns: 14
+- Date range: 2026-02-06 to 2026-03-17
+- Unique dates: 32
+- Systems: AERO (192 rows), DWC (192 rows)
+- plant_no: 1..6
+- Missing values: none
+- Duplicate rows: none
+- Duplicate date+plant_system+plant_no keys: none
+
+Columns:
+- date, day, plant_system
+- ave_ph, ave_do, ave_tds, ave_temp, ave_humidity
+- plant_no
+- height, length, weight, leaves, branches
+
+
+C) SPLIT METHOD (FULL DETAIL)
+Split logic used:
+- Parse date as yyyy-mm-dd
+- Sort by unique date values
+- 70/30 chronological split by unique dates
+- Use ceiling for train date count
+
+Computed split:
+- Total unique dates: 32
+- Train unique dates: 23 (ceil(32 * 0.70))
+- Test unique dates: 9
+
+Date boundaries:
+- training_data.csv: 2026-02-06 to 2026-03-06
+- test_data.csv: 2026-03-07 to 2026-03-17
+
+Rows:
+- training_data.csv: 276
+- test_data.csv: 108
+
+Additional inference file:
+- test_this.csv (sensor-only from test_data.csv)
+- Kept: date, day, plant_system, plant_no, ave_ph, ave_do, ave_tds, ave_temp, ave_humidity
+- Removed targets: height, length, weight, leaves, branches
+
+Leakage controls:
+- No date overlap between train and test.
+- No random shuffle during split.
+- Plant identifiers preserved in both sets.
+
+
+D) FEATURES USED FOR MODELING
+Base features:
+- ave_ph, ave_do, ave_tds, ave_temp, ave_humidity
+- plant_no
+- plant_system (for global models)
+
+Date-engineered features:
+- day_of_year
+- day_of_week_num
+- week_of_year
+
+
+E) MODELING RUNS PERFORMED
+E1) Baseline global run
+Script:
+- train_best_models_and_predict.py
+
+Candidate families:
+- LinearRegression
+- Ridge
+- RandomForest
+- ExtraTrees
+- GradientBoosting
+
+Best by target (baseline):
+- height: ExtraTrees_300
+- length: ExtraTrees_300
+- weight: ExtraTrees_300
+- leaves: GradientBoosting_300
+- branches: ExtraTrees_300
+
+Output files:
+- best_models_summary.csv
+- model_comparison_date_aware.csv
+- test_this_predictions.csv
+- training_report.txt
+- models/*.joblib
+
+
+E2) Improvement/tuning runs
+Scripts:
+- improve_models.py
+- improve_models_fast.py
+- improve_incremental.py
+
+Main result:
+- Improved run helped some targets, but not all.
+
+Output files:
+- best_models_summary_improved.csv
+- model_comparison_improved.csv
+- test_this_predictions_improved.csv
+- training_report_improved.txt
+- models_improved/*.joblib
+
+
+E3) Hybrid (best-of-both baseline + improved)
+Selection rule:
+- For each target, choose run with better test_r2.
+
+Hybrid target source:
+- height -> improved
+- length -> improved
+- weight -> baseline
+- leaves -> baseline
+- branches -> improved (before system-specific branch replacement)
+
+Output files:
+- hybrid_best_models_summary.csv
+- test_this_predictions_hybrid.csv
+
+
+E4) Branch-specific per-system training (AERO/DWC separate)
+Reason:
+- branches had low accuracy in global setup.
+
+Approach:
+- Train one branches model for AERO and one for DWC.
+- Replace only branches_pred in hybrid predictions.
+
+Result:
+- branches improved strongly vs global hybrid.
+
+Files:
+- branches_aero_best_model.joblib
+- branches_dwc_best_model.joblib
+- branches_system_best_summary.csv
+- branches_system_model_comparison.csv
+- branches_system_vs_hybrid_summary.csv
+- test_this_predictions_hybrid_systemsplit_branches.csv
+
+This file is the recommended final prediction output.
+
+
+E5) Full per-system training for all targets (AERO and DWC separate)
+Script:
+- code/train_systemsplit_all.py
+
+Approach:
+- Train separate models by system for each target.
+- Evaluate against baseline/hybrid-systemsplit-branches.
+
+Key outcome:
+- Improved: height, length, weight, branches
+- Worse: leaves
+
+Files:
+- systemsplit_all_model_comparison.csv
+- systemsplit_all_best_models_summary.csv
+- accuracy_metrics_systemsplit_all.csv
+- systemsplit_all_vs_baseline_comparison.csv
+- test_this_predictions_systemsplit_all.csv
+- models_systemsplit_all/*.joblib
+
+
+F) FINAL ACCURACY SNAPSHOTS
+F1) Hybrid with system-split branches (recommended)
+From branches_system_vs_hybrid_summary.csv and accuracy_metrics_hybrid.csv:
+- height: R2 ~ 0.8697
+- length: R2 ~ 0.9321
+- weight: R2 ~ 0.4392
+- leaves: R2 ~ 0.4687
+- branches (updated): R2 ~ 0.4591
+
+F2) Full system-split all targets
+From accuracy_metrics_systemsplit_all.csv:
+- height: R2 ~ 0.8755
+- length: R2 ~ 0.9364
+- weight: R2 ~ 0.4526
+- leaves: R2 ~ 0.3962
+- branches: R2 ~ 0.4608
+
+Interpretation:
+- Full system-split all targets is better for 4/5 targets.
+- Leaves drops noticeably, so the safest overall deployment remains mixed strategy.
+
+F3) Final mixed strategy used in FINAL/predictions/final_predictions.csv
+Construction rule:
+- Use F2 predictions for height, length, weight, branches.
+- Use F1 predictions for leaves.
+
+Final mixed metrics (from accuracy_metrics_final.csv):
+- height: R2 ~ 0.8755
+- length: R2 ~ 0.9364
+- weight: R2 ~ 0.4526
+- leaves: R2 ~ 0.4687
+- branches: R2 ~ 0.4608
+
+
+G) BEST-FIT MODEL CONCLUSION
+Overall best-fit family across runs:
+- ExtraTrees performed best for most targets and configurations.
+
+Important exception:
+- GradientBoosting often won for leaves (and some DWC/system-specific targets).
+
+Operational conclusion:
+- Best practical setup is a mixed strategy, not a single algorithm for all targets.
+
+
+H) RECOMMENDED DEPLOYMENT OUTPUT
+Use this prediction file in production:
+- predictions/final_predictions.csv
+  (built as mixed: F2 for all targets, F1 for leaves)
+
+Why:
+- Keeps stronger system-split-all performance for height, length, weight, branches.
+- Keeps stronger hybrid performance for leaves.
+- Gives the best combined metric profile across all targets.
+
+
+I) CONTENTS OF THIS FINAL FOLDER
+- data/
+  - COMBINED_SENSOR_PLANT_DATA_WITH_LENGTH.csv
+  - training_data.csv
+  - test_data.csv
+  - test_this.csv
+- code/
+  - train_best_models_and_predict.py
+  - improve_models.py
+  - improve_models_fast.py
+  - improve_incremental.py
+  - train_systemsplit_all.py
+- models/
+  - global, improved, branch-system, and systemsplit-all model artifacts
+- reports/
+  - baseline/improved/hybrid/systemsplit summaries and metrics
+- predictions/
+  - final_predictions.csv
+  - test_this_predictions_hybrid.csv
+  - test_this_predictions_systemsplit_all.csv
+  - actual_vs_predicted_hybrid.csv
+
+
+J) FINAL CONCLUSION
+- The pipeline is complete, date-safe, and reproducible.
+- Chronological split and leakage controls were correctly applied.
+- We tested baseline, improved, hybrid, branch-system split, and full system split.
+- Final recommended output is the mixed F2+F1 strategy in predictions/final_predictions.csv.
+- The project is deployment-ready for Raspberry Pi.

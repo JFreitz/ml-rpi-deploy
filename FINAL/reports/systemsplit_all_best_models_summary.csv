@@ -1,0 +1,11 @@
+system,target,best_model,test_r2,test_mae,test_rmse,model_path
+AERO,height,GradientBoosting_300,0.8479656059191426,2.4420441630737164,3.1426349198550723,C:\Users\User\OneDrive\Documents\ML\models_systemsplit_all\height_aero_best_model.joblib
+AERO,length,GradientBoosting_300,0.9605211316262456,2.469263767739383,2.681960046698121,C:\Users\User\OneDrive\Documents\ML\models_systemsplit_all\length_aero_best_model.joblib
+AERO,weight,ExtraTrees_250,0.30291229137813735,8.368296296296299,10.129167155263026,C:\Users\User\OneDrive\Documents\ML\models_systemsplit_all\weight_aero_best_model.joblib
+AERO,leaves,GradientBoosting_300,-0.4357458450809686,114.70147722063959,135.3033293670177,C:\Users\User\OneDrive\Documents\ML\models_systemsplit_all\leaves_aero_best_model.joblib
+AERO,branches,Ridge,0.3859093126199904,6.653736536230678,8.321664319825835,C:\Users\User\OneDrive\Documents\ML\models_systemsplit_all\branches_aero_best_model.joblib
+DWC,height,GradientBoosting_300,0.8420269333353777,1.456939543457386,1.671106212439049,C:\Users\User\OneDrive\Documents\ML\models_systemsplit_all\height_dwc_best_model.joblib
+DWC,length,GradientBoosting_300,0.7765748009744251,2.7360918793525486,3.3896484646825003,C:\Users\User\OneDrive\Documents\ML\models_systemsplit_all\length_dwc_best_model.joblib
+DWC,weight,GradientBoosting_300,0.5823688858038503,4.213765672504874,6.210106784371665,C:\Users\User\OneDrive\Documents\ML\models_systemsplit_all\weight_dwc_best_model.joblib
+DWC,leaves,GradientBoosting_300,0.09822584537275603,56.8769650260526,75.18987843278332,C:\Users\User\OneDrive\Documents\ML\models_systemsplit_all\leaves_dwc_best_model.joblib
+DWC,branches,GradientBoosting_300,0.3731085412683064,6.15559303859623,8.714656300265753,C:\Users\User\OneDrive\Documents\ML\models_systemsplit_all\branches_dwc_best_model.joblib
