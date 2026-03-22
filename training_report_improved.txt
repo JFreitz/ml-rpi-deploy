@@ -1,7 +1,0 @@
-Improved training summary
-==============================
-height: GradientBoosting (raw) | CV_R2=0.9594, TEST_R2=0.8752
-length: GradientBoosting (raw) | CV_R2=0.9918, TEST_R2=0.9391
-weight: GradientBoosting (raw) | CV_R2=0.3640, TEST_R2=0.5428
-leaves: GradientBoosting (raw) | CV_R2=0.5018, TEST_R2=0.4736
-branches: GradientBoosting (log1p) | CV_R2=0.6233, TEST_R2=0.0472
