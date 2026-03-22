@@ -1,0 +1,7 @@
+Improved summary
+==============================
+height: ExtraTrees_300 | CV_R2=0.9450 | TEST_R2=0.8697
+length: ExtraTrees_500_depth16 | CV_R2=0.9883 | TEST_R2=0.9321
+weight: GradientBoosting_700 | CV_R2=0.2217 | TEST_R2=0.4124
+leaves: GradientBoosting_700 | CV_R2=0.3611 | TEST_R2=0.4484
+branches: ExtraTrees_500_depth16 | CV_R2=0.5485 | TEST_R2=0.1051

@@ -1,0 +1,6 @@
+target,best_model,cv_r2,cv_rmse,cv_mae,model_path,test_r2,test_rmse,test_mae
+height,ExtraTrees_300,0.945030845337587,1.2064315166003354,0.9390833333333308,C:\Users\User\OneDrive\Documents\ML\models_improved\height_best_model.joblib,0.8696803478017636,2.5752275074292963,2.0327314814814867
+length,ExtraTrees_500_depth16,0.9882578339581426,1.2457619084337117,1.094397916666734,C:\Users\User\OneDrive\Documents\ML\models_improved\length_best_model.joblib,0.9321338674232084,3.1572188597749515,2.7257574074074262
+weight,GradientBoosting_700,0.22172556725421233,3.564193481816301,2.802764118197155,C:\Users\User\OneDrive\Documents\ML\models_improved\weight_best_model.joblib,0.4124472721402488,8.703663107394561,6.414986186904265
+leaves,GradientBoosting_700,0.36105537999346426,42.06372134211179,33.368228957893386,C:\Users\User\OneDrive\Documents\ML\models_improved\leaves_best_model.joblib,0.44838969859522315,104.61479508294626,82.19764105605803
+branches,ExtraTrees_500_depth16,0.5485312140528846,4.815401660259413,3.7591874999999995,C:\Users\User\OneDrive\Documents\ML\models_improved\branches_best_model.joblib,0.10509166911884582,10.976335889337367,8.09562962962963

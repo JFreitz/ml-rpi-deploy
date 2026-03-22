@@ -1,0 +1,7 @@
+Date-aware best model training report
+=============================================
+height: ExtraTrees_300 | CV_R2=0.9424, CV_RMSE=1.2442, TEST_R2=0.8646, TEST_RMSE=2.6246
+length: ExtraTrees_300 | CV_R2=0.9874, CV_RMSE=1.2895, TEST_R2=0.9301, TEST_RMSE=3.2041
+weight: ExtraTrees_300 | CV_R2=0.1704, CV_RMSE=3.6756, TEST_R2=0.4392, TEST_RMSE=8.5032
+leaves: GradientBoosting_300 | CV_R2=0.3674, CV_RMSE=41.8952, TEST_R2=0.4687, TEST_RMSE=102.6734
+branches: ExtraTrees_300 | CV_R2=0.5239, CV_RMSE=4.9865, TEST_R2=0.0732, TEST_RMSE=11.1701
