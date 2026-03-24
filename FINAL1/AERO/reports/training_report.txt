@@ -1,0 +1,7 @@
+AERO separate training report
+============================================================
+height: ExtraTrees_250 | CV_R2=0.9931, TEST_R2=0.9968, TEST_RMSE=0.3586, TEST_MAE=0.2215
+length: GradientBoosting_200 | CV_R2=0.9958, TEST_R2=0.9984, TEST_RMSE=0.5211, TEST_MAE=0.3684
+weight: GradientBoosting_200 | CV_R2=0.9641, TEST_R2=0.9878, TEST_RMSE=1.3802, TEST_MAE=1.0592
+leaves: GradientBoosting_200 | CV_R2=0.9841, TEST_R2=0.9884, TEST_RMSE=17.8513, TEST_MAE=13.8346
+branches: ExtraTrees_250 | CV_R2=0.9313, TEST_R2=0.9647, TEST_RMSE=2.9423, TEST_MAE=2.3224

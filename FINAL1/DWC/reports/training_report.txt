@@ -1,0 +1,7 @@
+DWC separate training report
+============================================================
+height: RandomForest_200 | CV_R2=0.9216, TEST_R2=0.9903, TEST_RMSE=0.5117, TEST_MAE=0.3897
+length: GradientBoosting_200 | CV_R2=0.9614, TEST_R2=0.9865, TEST_RMSE=0.9369, TEST_MAE=0.7355
+weight: GradientBoosting_200 | CV_R2=0.9462, TEST_R2=0.9690, TEST_RMSE=1.4546, TEST_MAE=1.1444
+leaves: GradientBoosting_200 | CV_R2=0.9276, TEST_R2=0.9721, TEST_RMSE=14.3155, TEST_MAE=11.0132
+branches: RandomForest_200 | CV_R2=0.8466, TEST_R2=0.9115, TEST_RMSE=3.7411, TEST_MAE=2.4271
